@@ -1,0 +1,17 @@
+sudo git clone https://github.com/yahoo/CMAK.git
+cd CMAK/
+vi /opt/CMAK/conf/application.conf
+"
+kafka-manager.zkhosts="10.10.10.181:2181,10.10.10.51:2181,10.10.10.128:2181"
+cmak.zkhosts="10.10.10.181:2181,10.10.10.51:2181,10.10.10.128:2181"
+"
+./sbt clean dist
+sudo cp /home/ubuntu/.sbt/1.0/staging/9fe122a9540185ff93da/cmak/target/universal/cmak-3.0.0.5.zip .
+sudo unzip cmak-3.0.0.5.zip
+cd cmak-3.0.0.5/
+sudo bin/cmak -Dconfig.file=/opt/CMAK/conf/application.conf -Dhttp.port=9000
+Open GUI http://10.10.10.181:9000/
+add cluster
+Cluster Name enter <3NodesKafkaBroker>
+Cluster Zookeeper Hosts <10.10.10.181:2181,10.10.10.51:2181,10.10.10.128:2181>
+SAVE
